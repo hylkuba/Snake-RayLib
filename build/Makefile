@@ -34,4 +34,7 @@ run: compile
 clean:
 	rm -rf bin $(EXEC)
 
-.PHONY: compile run clean
+# All
+all: compile run clean
+
+.PHONY: all
