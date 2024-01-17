@@ -4,3 +4,7 @@
 */
 
 #include "fruit.h"
+
+void CFruit::draw() {
+    
+}

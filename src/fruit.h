@@ -9,7 +9,7 @@
 
 class CFruit : public CPos {
 public: 
-
+    void draw();
 private:
 
 };

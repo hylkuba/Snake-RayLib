@@ -9,6 +9,8 @@
 #include "pos.h"
 #include "raylib.h"
 
+#include <deque>
+
 class CSnake : public CPos {
 public:
     CSnake();
@@ -17,9 +19,13 @@ public:
 
     void grow();
 
+    void draw();
+
 private:
     int m_length;
     int m_speed;
     Color m_color;
     Color m_head_color;
+    
+    std::deque<CPos> body;
 };

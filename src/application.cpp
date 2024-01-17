@@ -5,7 +5,11 @@
 
 #include "application.h"
 
-CApplication::CApplication() {
+CApplication::CApplication() 
+    : gameOver(false) {
+
+    snake = CSnake();
+    fruit = CFruit();
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib [core] example - basic window");
 
     SetTargetFPS(TARGET_FPS);
@@ -19,27 +23,12 @@ int CApplication::run() {
 
     // Main game loop
     while (!WindowShouldClose()) {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
+        updateGame();
 
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
-
-            ClearBackground(RAYWHITE);
-
-            DrawText("SNAKE GAME!", 190, 200, 20, LIGHTGRAY);
-
-        EndDrawing();
+        drawGame();
     }
 
     return 0;
-}
-
-void CApplication::initGame() {
-
 }
 
 void CApplication::updateGame() {
@@ -47,5 +36,34 @@ void CApplication::updateGame() {
 }
 
 void CApplication::drawGame() {
-    
+    BeginDrawing();
+
+    ClearBackground(BACKGROUND_COLOR);
+
+    if(!gameOver) {
+        //drawGridLines();
+
+        snake.draw();
+
+        fruit.draw();
+    } else {
+        DrawText("PRESS [ENTER] TO PLAY AGAIN", SCREEN_WIDTH / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, SCREEN_HEIGHT / 2 - 50, 20, GRAY);
+    }
+
+    EndDrawing();
+}
+
+void CApplication::drawGridLines() {
+
+    for (int i = 0; i < SQUARE_COUNT + 1; i++)
+    {
+        float offset = SQUARE_SIZE * i;
+        DrawLineV((Vector2){offset, 0}, (Vector2){offset, SCREEN_HEIGHT}, GRID_COLOR);
+    }
+
+    for (int i = 0; i < SQUARE_COUNT + 1; i++)
+    {
+        float offset = SQUARE_SIZE * i;
+        DrawLineV((Vector2){0, offset}, (Vector2){SCREEN_WIDTH, offset}, LIGHTGRAY);
+    }
 }
