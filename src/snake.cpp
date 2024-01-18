@@ -37,7 +37,7 @@ void CSnake::draw() {
 
 void CSnake::update() {
     body.push_front(body[0] + dir);
-    setPos(body.front().getPosX(), body.front().getPosY());
+    setPos(body.front());
     body.pop_back();
 }
 
@@ -54,13 +54,13 @@ std::deque<CPos> CSnake::getBody() {
 }
 
 bool CSnake::checkBodyHit() {
-    CPos curr = {getPosX(), getPosY()};
-    auto it = std::find(body.begin(), body.end(), curr);
+    std::deque<CPos> headlessBody = body;
+    headlessBody.pop_front();
 
-    if(it != body.end() && ( it->getPosX() != body.front().getPosX() && 
-        it->getPosY() != body.front().getPosY())) {
-        
-        return true;
+    for (size_t i = 0; i < headlessBody.size(); i++) {
+        if (getPos() == headlessBody[i]) {
+            return true;
+        }
     }
     return false;
 }

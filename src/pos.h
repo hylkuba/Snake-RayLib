@@ -12,6 +12,10 @@ public:
         m_posY = y;
     }
 
+    CPos getPos() {
+        return *this;
+    }
+
     int getPosX() {
         return m_posX;
     }
@@ -23,6 +27,10 @@ public:
     void setPos(int x, int y) {
         m_posX = x;
         m_posY = y;
+    }
+
+    void setPos(CPos other) {
+        *this = other;
     }
 
     bool operator<(const CPos& other) const {

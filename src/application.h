@@ -31,6 +31,8 @@ private:
 
     bool checkEatenFruit();
 
+    void reset();
+
     bool gameOver;
 
     bool fruitActive;

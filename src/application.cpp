@@ -6,6 +6,7 @@
 #include "application.h"
 
 #include "pos.h"
+#include <iostream>
 
 CApplication::CApplication() 
     : gameOver(false), fruitActive(false), moveAllowed(true), lastUpdateTime(0.0),
@@ -24,24 +25,44 @@ CApplication::~CApplication() {
 
 int CApplication::run() {
 
-    // Main game loop
-    while (!WindowShouldClose()) {
-        // Update the game if interval condition is fullfilled
-        if(eventTriggered(refreshInterval)) {
-            updateGame();
-            moveAllowed = true;
+    // Loop for games
+    while(true) {
+
+        // Main game loop
+        while (!WindowShouldClose()) {
+            // Update the game if interval condition is fullfilled
+            if(eventTriggered(refreshInterval)) {
+                updateGame();
+                moveAllowed = true;
+            }
+
+            checkKeyPresses();
+
+            drawGame();
+
+            if(gameOver) {
+                break;
+            }
         }
 
-        checkKeyPresses();
-
-        drawGame();
-
-        if(gameOver) {
+        // If window was closed by user, end application
+        if(!gameOver) {
+            break;
+        } else {
+            bool enter = false;
             while(!WindowShouldClose()) {
-                if (IsKeyPressed(KEY_ENTER)) {
-                    gameOver = false;
-                    // TODO reset everything
+                if(IsKeyPressed(KEY_ENTER)) {
+                    enter = true;
+                    break;
                 }
+                drawGame();
+            }
+
+            if(!enter) {
+                break;
+            } else {
+                reset();
+                std::cout << "ENTER PRESSED" << std::endl;
             }
         }
     }
@@ -139,8 +160,19 @@ void CApplication::checkKeyPresses() {
 }
 
 bool CApplication::checkEatenFruit() {
-    if(snake.getBody()[0] == CPos{fruit.getPosX(), fruit.getPosY()}) {
+    if(snake.getBody()[0] == fruit.getPos()) {
         return true;
     }
     return false;
+}
+
+void CApplication::reset() {
+    snake = CSnake();
+    fruit = CFruit();
+
+    gameOver = false;
+    fruitActive = false;
+    moveAllowed = true;
+    lastUpdateTime = 0.0;
+    refreshInterval = INIT_INTERVAL;
 }
