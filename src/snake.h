@@ -21,11 +21,23 @@ public:
 
     void draw();
 
+    void update();
+
+    void changeDir(CPos move);
+
+    CPos getDir();
+
+    bool checkBodyHit();
+
+    std::deque<CPos> getBody();
+
 private:
     int m_length;
     int m_speed;
     Color m_color;
     Color m_head_color;
+
+    CPos dir;
     
     std::deque<CPos> body;
 };

@@ -25,7 +25,21 @@ private:
 
     void drawGridLines();
 
+    bool eventTriggered(double interval);
+
+    void checkKeyPresses();
+
+    bool checkEatenFruit();
+
     bool gameOver;
+
+    bool fruitActive;
+
+    bool moveAllowed;
+
+    double lastUpdateTime;
+
+    double refreshInterval;
 
     CSnake snake;
     CFruit fruit;

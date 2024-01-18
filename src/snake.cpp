@@ -5,7 +5,7 @@
 
 #include "snake.h"
 
-#include <iostream>
+#include <algorithm>
 
 CSnake::CSnake()
       : m_length(SNAKE_INIT_LENGTH),
@@ -17,12 +17,15 @@ CSnake::CSnake()
         CPos pos(SNAKE_START_POS_X, SNAKE_START_POS_Y + i);
         body.push_back(pos);
     }
+
+    dir.setPos(0, -1);
     
     setPos(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
 void CSnake::grow() {
     m_length++;
+    body.push_back(body.back());
 }
 
 void CSnake::draw() {
@@ -30,4 +33,34 @@ void CSnake::draw() {
         Rectangle segment = Rectangle{it->getPosX() * (float)SQUARE_SIZE, it->getPosY() * (float)SQUARE_SIZE, (float)SQUARE_SIZE, (float)SQUARE_SIZE};
         DrawRectangleRounded(segment, SNAKE_ROUNDNESS, 10, SNAKE_COLOR);
     }
+}
+
+void CSnake::update() {
+    body.push_front(body[0] + dir);
+    setPos(body.front().getPosX(), body.front().getPosY());
+    body.pop_back();
+}
+
+void CSnake::changeDir(CPos move) {
+    dir = move;
+}
+
+CPos CSnake::getDir() {
+    return dir;
+}
+
+std::deque<CPos> CSnake::getBody() {
+    return body;   
+}
+
+bool CSnake::checkBodyHit() {
+    CPos curr = {getPosX(), getPosY()};
+    auto it = std::find(body.begin(), body.end(), curr);
+
+    if(it != body.end() && ( it->getPosX() != body.front().getPosX() && 
+        it->getPosY() != body.front().getPosY())) {
+        
+        return true;
+    }
+    return false;
 }

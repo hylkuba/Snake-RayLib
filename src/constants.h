@@ -7,6 +7,9 @@
 #define TARGET_FPS 60
 #define SQUARE_SIZE 30
 #define SQUARE_COUNT 30 
+#define GRID_LINES false
+#define INIT_INTERVAL 0.2
+#define DIFF_MULTIPLIER 0.95
 
 // Screen constants
 #define SCREEN_WIDTH (SQUARE_COUNT * SQUARE_SIZE)

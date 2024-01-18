@@ -7,9 +7,11 @@
 
 #include "pos.h"
 
+#include <deque>
+
 class CFruit : public CPos {
 public: 
     void draw();
-private:
 
+    void generateNewPos(std::deque<CPos> forbiddenPos);
 };

@@ -25,6 +25,23 @@ public:
         m_posY = y;
     }
 
+    bool operator<(const CPos& other) const {
+        if (m_posX < other.m_posX) {
+            return true;
+        } else if (m_posX > other.m_posX) {
+            return false;
+        }
+        return m_posY < other.m_posY;
+    }
+    
+    bool operator==(const CPos& other) const {
+        return (m_posX == other.m_posX) && (m_posY == other.m_posY);
+    }
+
+    CPos operator+(const CPos& other) const {
+        return CPos(m_posX + other.m_posX, m_posY + other.m_posY);
+    }
+
 private:
     int m_posX;
     int m_posY;

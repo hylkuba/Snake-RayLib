@@ -5,12 +5,15 @@
 
 #include "application.h"
 
+#include "pos.h"
+
 CApplication::CApplication() 
-    : gameOver(false) {
+    : gameOver(false), fruitActive(false), moveAllowed(true), lastUpdateTime(0.0),
+        refreshInterval(INIT_INTERVAL) {
 
     snake = CSnake();
     fruit = CFruit();
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib [core] example - basic window");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game");
 
     SetTargetFPS(TARGET_FPS);
 }
@@ -23,16 +26,51 @@ int CApplication::run() {
 
     // Main game loop
     while (!WindowShouldClose()) {
-        updateGame();
+        // Update the game if interval condition is fullfilled
+        if(eventTriggered(refreshInterval)) {
+            updateGame();
+            moveAllowed = true;
+        }
+
+        checkKeyPresses();
 
         drawGame();
+
+        if(gameOver) {
+            while(!WindowShouldClose()) {
+                if (IsKeyPressed(KEY_ENTER)) {
+                    gameOver = false;
+                    // TODO reset everything
+                }
+            }
+        }
     }
 
     return 0;
 }
 
 void CApplication::updateGame() {
+    if(!fruitActive) {
+        fruit.generateNewPos(snake.getBody());
+        fruitActive = true;
+    }
+    snake.update();
 
+    if(checkEatenFruit()) {
+        snake.grow();
+        fruit.generateNewPos(snake.getBody());
+        refreshInterval *= DIFF_MULTIPLIER;
+    }
+
+    if(snake.getPosX() < 0 || snake.getPosX() >= SQUARE_COUNT 
+        || snake.getPosY() < 0 || snake.getPosY() >= SQUARE_COUNT) {
+        
+        gameOver = true;   
+    }
+
+    if(snake.checkBodyHit()) {
+        gameOver = true;
+    }
 }
 
 void CApplication::drawGame() {
@@ -41,7 +79,9 @@ void CApplication::drawGame() {
     ClearBackground(BACKGROUND_COLOR);
 
     if(!gameOver) {
-        //drawGridLines();
+        if(GRID_LINES) {
+            drawGridLines();
+        }
 
         snake.draw();
 
@@ -66,4 +106,41 @@ void CApplication::drawGridLines() {
         float offset = SQUARE_SIZE * i;
         DrawLineV((Vector2){0, offset}, (Vector2){SCREEN_WIDTH, offset}, LIGHTGRAY);
     }
+}
+
+bool CApplication::eventTriggered(double interval)
+{
+    double currentTime = GetTime();
+    if (currentTime - lastUpdateTime >= interval)
+    {
+        lastUpdateTime = currentTime;
+        return true;
+    }
+    return false;
+}
+
+void CApplication::checkKeyPresses() {
+    if (IsKeyPressed(KEY_UP) && snake.getDir().getPosY() != 1 && moveAllowed) {
+        snake.changeDir({0, -1});
+        moveAllowed = false;
+    }
+    if (IsKeyPressed(KEY_DOWN) && snake.getDir().getPosY() != -1 && moveAllowed) {
+        snake.changeDir({0, 1});
+        moveAllowed = false;
+    }
+    if (IsKeyPressed(KEY_LEFT) && snake.getDir().getPosX() != 1 && moveAllowed) {
+        snake.changeDir({-1, 0});
+        moveAllowed = false;
+    }
+    if (IsKeyPressed(KEY_RIGHT) && snake.getDir().getPosX() != -1 && moveAllowed) {
+        snake.changeDir({1, 0});
+        moveAllowed = false;
+    }
+}
+
+bool CApplication::checkEatenFruit() {
+    if(snake.getBody()[0] == CPos{fruit.getPosX(), fruit.getPosY()}) {
+        return true;
+    }
+    return false;
 }
