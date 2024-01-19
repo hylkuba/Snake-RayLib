@@ -10,7 +10,7 @@
 CApplication::CApplication() 
     : gameOver(false), lastUpdateTime(0.0),
         refreshInterval(INIT_INTERVAL) {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game");
+    InitWindow(SCREEN_WIDTH + MARGIN * 2, SCREEN_HEIGHT + MARGIN * 2, "Snake Game");
 
     SetTargetFPS(TARGET_FPS);
 }
@@ -33,13 +33,13 @@ int CApplication::run() {
                 gameOver = !game.update(refreshInterval);
             }
 
-            game.checkKeyPresses();
-
-            game.draw();
-
             if(gameOver) {
                 break;
             }
+
+            game.checkKeyPresses();
+
+            game.draw();
         }
 
         // If window was closed by user, end application

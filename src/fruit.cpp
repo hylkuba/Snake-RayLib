@@ -11,7 +11,7 @@
 #include <algorithm>
 
 void CFruit::draw() {
-    DrawCircle(getPosX() * CELL_SIZE + CELL_SIZE / 2, getPosY() * CELL_SIZE + CELL_SIZE / 2, CELL_SIZE / 4, FRUIT_COLOR);
+    DrawCircle(getPosX() * CELL_SIZE + CELL_SIZE / 2 + MARGIN, getPosY() * CELL_SIZE + CELL_SIZE / 2 + MARGIN, CELL_SIZE / 4, FRUIT_COLOR);
 }
 
 void CFruit::generateNewPos(const std::deque<CPos> forbiddenPos) {

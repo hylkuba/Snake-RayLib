@@ -28,15 +28,15 @@ void CSnake::draw() {
     unsigned char opacity = 255;
 
     // Draw head
-    Rectangle segment = Rectangle{body[0].getPosX() * (float)CELL_SIZE,
-            body[0].getPosY() * (float)CELL_SIZE, (float)CELL_SIZE, (float)CELL_SIZE};
+    Rectangle segment = Rectangle{body[0].getPosX() * (float)CELL_SIZE + MARGIN,
+            body[0].getPosY() * (float)CELL_SIZE + MARGIN, (float)CELL_SIZE, (float)CELL_SIZE};
     
     DrawRectangleRounded(segment, SNAKE_ROUNDNESS, 10, SNAKE_HEAD_COLOR);
     
     // Draw tail
     for (size_t i = 1; i < body.size(); i++) {
-        Rectangle segment = Rectangle{body[i].getPosX() * (float)CELL_SIZE,
-            body[i].getPosY() * (float)CELL_SIZE, (float)CELL_SIZE, (float)CELL_SIZE};
+        Rectangle segment = Rectangle{body[i].getPosX() * (float)CELL_SIZE + MARGIN,
+            body[i].getPosY() * (float)CELL_SIZE + MARGIN, (float)CELL_SIZE, (float)CELL_SIZE};
 
         DrawRectangleRounded(segment, SNAKE_ROUNDNESS, 10, (Color) { SNAKE_COLOR_R, SNAKE_COLOR_G, SNAKE_COLOR_B, opacity });
         

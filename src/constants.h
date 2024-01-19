@@ -17,6 +17,7 @@
 #define CONGRATULATE_TIME 5 // In seconds
 
 // Screen constants
+#define MARGIN 25
 #define SCREEN_WIDTH (CELL_COUNT * CELL_SIZE)
 #define SCREEN_HEIGHT (CELL_COUNT * CELL_SIZE)
 #define BACKGROUND_COLOR (Color){ 32, 17, 59, 100 } // Purpleish

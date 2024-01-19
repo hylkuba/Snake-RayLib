@@ -38,7 +38,7 @@ bool CGame::update(double &refreshInterval) {
 
     if(snake.getPosX() < 0 || snake.getPosX() >= CELL_COUNT 
         || snake.getPosY() < 0 || snake.getPosY() >= CELL_COUNT) {
-        congratulate();
+        
         return false;
     }
 
@@ -67,16 +67,14 @@ void CGame::draw() {
 
 void CGame::drawGridLines() {
 
-    for (int i = 0; i < CELL_COUNT + 1; i++)
-    {
+    for (int i = 0; i <= CELL_COUNT + 1; i++) {
         float offset = CELL_SIZE * i;
-        DrawLineV((Vector2){offset, 0}, (Vector2){offset, SCREEN_HEIGHT}, GRID_COLOR);
+        DrawLineV((Vector2){offset, MARGIN}, (Vector2){offset, SCREEN_HEIGHT + MARGIN}, GRID_COLOR);
     }
 
-    for (int i = 0; i < CELL_COUNT + 1; i++)
-    {
+    for (int i = 0; i <= CELL_COUNT + 1; i++) {
         float offset = CELL_SIZE * i;
-        DrawLineV((Vector2){0, offset}, (Vector2){SCREEN_WIDTH, offset}, GRID_COLOR);
+        DrawLineV((Vector2){MARGIN, offset}, (Vector2){SCREEN_WIDTH + MARGIN, offset}, GRID_COLOR);
     }
 }
 
