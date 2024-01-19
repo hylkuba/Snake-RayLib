@@ -10,7 +10,6 @@
 CSnake::CSnake()
       : m_length(SNAKE_INIT_LENGTH),
         m_speed(SNAKE_SPEED),
-        m_color(SNAKE_COLOR),
         m_head_color(SNAKE_HEAD_COLOR) {
 
     for (int i = 0; i < SNAKE_INIT_LENGTH; i++) {
@@ -29,9 +28,25 @@ void CSnake::grow() {
 }
 
 void CSnake::draw() {
-    for (std::deque<CPos>::iterator it = body.begin(); it != body.end(); ++it) {
-        Rectangle segment = Rectangle{it->getPosX() * (float)SQUARE_SIZE, it->getPosY() * (float)SQUARE_SIZE, (float)SQUARE_SIZE, (float)SQUARE_SIZE};
-        DrawRectangleRounded(segment, SNAKE_ROUNDNESS, 10, SNAKE_COLOR);
+    unsigned char opacity = 255;
+
+    // Draw head
+    Rectangle segment = Rectangle{body[0].getPosX() * (float)CELL_SIZE,
+            body[0].getPosY() * (float)CELL_SIZE, (float)CELL_SIZE, (float)CELL_SIZE};
+    
+    DrawRectangleRounded(segment, SNAKE_ROUNDNESS, 10, SNAKE_HEAD_COLOR);
+    
+    // Draw tail
+    for (size_t i = 1; i < body.size(); i++) {
+        Rectangle segment = Rectangle{body[i].getPosX() * (float)CELL_SIZE,
+            body[i].getPosY() * (float)CELL_SIZE, (float)CELL_SIZE, (float)CELL_SIZE};
+
+        DrawRectangleRounded(segment, SNAKE_ROUNDNESS, 10, (Color) { SNAKE_COLOR_R, SNAKE_COLOR_G, SNAKE_COLOR_B, opacity });
+        
+        // For each segment of body, decrease the opacity of tail for more natural visuals
+        if(opacity > 50) {
+            opacity -= 5;
+        }
     }
 }
 
@@ -63,4 +78,8 @@ bool CSnake::checkBodyHit() {
         }
     }
     return false;
+}
+
+bool CSnake::win() {
+    return body.size() == CELL_COUNT * CELL_COUNT;
 }
