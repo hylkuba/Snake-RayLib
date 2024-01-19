@@ -11,8 +11,17 @@
 
 class CFruit : public CPos {
 public: 
+    /**
+     * @brief Draws fruit
+     * 
+     */
     void draw();
 
+    /**
+     * @brief Generates new position for fruit that is not in forbiddenPos dequeue
+     * 
+     * @param forbiddenPos dequeu of snake's body
+     */
     void generateNewPos(std::deque<CPos> forbiddenPos);
 
 private:

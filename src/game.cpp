@@ -5,20 +5,16 @@
 
 #include "game.h"
 
-CGame::CGame()
-    : fruitActive(false), moveAllowed(true) {
+CGame::CGame() : moveAllowed(true) {
     
     snake = CSnake();
     fruit = CFruit();
+    fruit.generateNewPos(snake.getBody());
 }
 
 bool CGame::update(double &refreshInterval) {
     moveAllowed = true;
 
-    if(!fruitActive) {
-        fruit.generateNewPos(snake.getBody());
-        fruitActive = true;
-    }
     snake.update();
 
     if(checkEatenFruit()) {

@@ -9,7 +9,7 @@
 // Game constants
 #define TARGET_FPS 60
 #define CELL_SIZE 30
-#define CELL_COUNT 20 
+#define CELL_COUNT 30 
 #define GRID_LINES true
 #define INIT_INTERVAL 0.2
 #define DIFF_MULTIPLIER 0.95

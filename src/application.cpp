@@ -46,6 +46,8 @@ int CApplication::run() {
         if(!gameOver) {
             break;
         } else {
+
+            // Otherwise wait till user presses ENTER
             bool enter = false;
 
             while(!WindowShouldClose()) {
