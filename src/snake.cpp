@@ -8,9 +8,7 @@
 #include <algorithm>
 
 CSnake::CSnake()
-      : m_length(SNAKE_INIT_LENGTH),
-        m_speed(SNAKE_SPEED),
-        m_head_color(SNAKE_HEAD_COLOR) {
+      : m_head_color(SNAKE_HEAD_COLOR) {
 
     for (int i = 0; i < SNAKE_INIT_LENGTH; i++) {
         CPos pos(SNAKE_START_POS_X, SNAKE_START_POS_Y + i);
@@ -23,7 +21,6 @@ CSnake::CSnake()
 }
 
 void CSnake::grow() {
-    m_length++;
     body.push_back(body.back());
 }
 

@@ -23,18 +23,15 @@
 
 // Snake
 #define SNAKE_INIT_LENGTH 3
-#define SNAKE_SPEED 1
+#define SNAKE_START_POS_X (CELL_SIZE / 2)
+#define SNAKE_START_POS_Y (CELL_SIZE / 2)
+#define SNAKE_ROUNDNESS 0.9
 
-// Define Snake colors (pinkish)
+// Snake colors (pinkish)
 #define SNAKE_COLOR_R 245
 #define SNAKE_COLOR_G 194
 #define SNAKE_COLOR_B 194
 #define SNAKE_HEAD_COLOR PINK
-
-// Define snake aspects
-#define SNAKE_START_POS_X (CELL_SIZE / 2)
-#define SNAKE_START_POS_Y (CELL_SIZE / 2)
-#define SNAKE_ROUNDNESS 0.9
 
 // Fruit
 #define FRUIT_COLOR ORANGE

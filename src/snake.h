@@ -34,9 +34,6 @@ public:
     bool win();
 
 private:
-    int m_length;
-    int m_speed;
-
     Color m_head_color;
 
     CPos dir;

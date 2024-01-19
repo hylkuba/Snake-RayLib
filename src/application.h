@@ -7,8 +7,7 @@
 
 #include "raylib.h"
 #include "constants.h"
-#include "snake.h"
-#include "fruit.h"
+#include "game.h"
 
 class CApplication {
 public:
@@ -19,30 +18,11 @@ public:
     int run();
 
 private:
-    void updateGame();
-
-    void drawGame();
-
-    void drawGridLines();
-
     bool eventTriggered(double interval);
 
-    void checkKeyPresses();
-
-    bool checkEatenFruit();
-
-    void reset();
-
     bool gameOver;
-
-    bool fruitActive;
-
-    bool moveAllowed;
 
     double lastUpdateTime;
 
     double refreshInterval;
-
-    CSnake snake;
-    CFruit fruit;
 };
