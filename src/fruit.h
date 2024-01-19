@@ -11,6 +11,10 @@
 
 class CFruit : public CPos {
 public: 
+    CFruit() = default;
+
+    ~CFruit() = default;
+
     /**
      * @brief Draws fruit
      * 

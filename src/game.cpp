@@ -5,6 +5,8 @@
 
 #include "game.h"
 
+#include <string>
+
 CGame::CGame() : moveAllowed(true) {
     
     snake = CSnake();
@@ -19,6 +21,13 @@ bool CGame::update(double &refreshInterval) {
 
     if(checkEatenFruit()) {
         snake.grow();
+
+        // Check if snake used whole map
+        if(snake.win()) {
+            congratulate();
+            return false;
+        }
+
         fruit.generateNewPos(snake.getBody());
         refreshInterval *= DIFF_MULTIPLIER;
 
@@ -29,7 +38,7 @@ bool CGame::update(double &refreshInterval) {
 
     if(snake.getPosX() < 0 || snake.getPosX() >= CELL_COUNT 
         || snake.getPosY() < 0 || snake.getPosY() >= CELL_COUNT) {
-
+        congratulate();
         return false;
     }
 
@@ -95,4 +104,18 @@ bool CGame::checkEatenFruit() {
         return true;
     }
     return false;
+}
+
+void CGame::congratulate() {
+    double start = GetTime();
+    while(GetTime() - start < CONGRATULATE_TIME && !WindowShouldClose()) {
+        BeginDrawing();
+        ClearBackground(BACKGROUND_COLOR);
+
+        int diff = start - GetTime() + CONGRATULATE_TIME;
+        DrawText("CONGRATULATIONS", SCREEN_WIDTH / 2 - MeasureText("CONGRATULATIONS", 20) / 2, SCREEN_HEIGHT / 2, 20, GRAY);
+        std::string message = "YOU CAN START AGAIN IN: " + std::to_string(diff);
+        DrawText(message.c_str(), SCREEN_WIDTH / 2 - MeasureText(message.c_str(), 20) / 2, SCREEN_HEIGHT / 2 + 20, 20, GRAY);
+        EndDrawing();
+    }
 }

@@ -14,6 +14,7 @@
 #define INIT_INTERVAL 0.2
 #define DIFF_MULTIPLIER 0.95
 #define INTERVAL_CAP 0.1
+#define CONGRATULATE_TIME 5 // In seconds
 
 // Screen constants
 #define SCREEN_WIDTH (CELL_COUNT * CELL_SIZE)

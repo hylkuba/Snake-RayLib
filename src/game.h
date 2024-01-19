@@ -12,6 +12,8 @@ class CGame {
 public:
     CGame();
 
+    ~CGame() = default;
+
     /**
      * @brief Updates game loop. Checks for hits and moves a snake
      * 
@@ -47,6 +49,12 @@ private:
      * 
      */
     void drawGridLines();
+
+    /**
+     * @brief Print congratulations and wait CONGRATULATE_TIME
+     * 
+     */
+    void congratulate();
 
     // Forbids multiple moves at the same time due to keyboard delays
     bool moveAllowed;

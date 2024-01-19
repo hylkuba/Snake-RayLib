@@ -12,6 +12,8 @@ public:
         m_posY = y;
     }
 
+    ~CPos() = default;
+
     CPos getPos() {
         return *this;
     }
