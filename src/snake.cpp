@@ -80,3 +80,7 @@ bool CSnake::checkBodyHit() {
 bool CSnake::win() {
     return body.size() == CELL_COUNT * CELL_COUNT;
 }
+
+unsigned int CSnake::getSize() {
+    return body.size();
+}

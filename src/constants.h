@@ -16,6 +16,10 @@
 #define INTERVAL_CAP 0.1
 #define CONGRATULATE_TIME 5 // In seconds
 
+// Score
+#define SCORE_FONT_SIZE 20
+#define SCORE_FONT_COLOR RAYWHITE
+
 // Screen constants
 #define MARGIN 25
 #define SCREEN_WIDTH (CELL_COUNT * CELL_SIZE)

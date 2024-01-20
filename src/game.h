@@ -56,6 +56,13 @@ private:
      */
     void congratulate();
 
+    /**
+     * @brief Writes score below the map
+     *  Score is the size of snake's body
+     * 
+     */
+    void writeScore();
+
     // Forbids multiple moves at the same time due to keyboard delays
     bool moveAllowed;
 

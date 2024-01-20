@@ -62,18 +62,20 @@ void CGame::draw() {
     snake.draw();
     fruit.draw();
 
+    writeScore();
+
     EndDrawing();
 }
 
 void CGame::drawGridLines() {
 
-    for (int i = 0; i <= CELL_COUNT + 1; i++) {
-        float offset = CELL_SIZE * i;
+    for (int i = 0; i < CELL_COUNT + 1; i++) {
+        float offset = CELL_SIZE * i + MARGIN;
         DrawLineV((Vector2){offset, MARGIN}, (Vector2){offset, SCREEN_HEIGHT + MARGIN}, GRID_COLOR);
     }
 
-    for (int i = 0; i <= CELL_COUNT + 1; i++) {
-        float offset = CELL_SIZE * i;
+    for (int i = 0; i < CELL_COUNT + 1; i++) {
+        float offset = CELL_SIZE * i + MARGIN;
         DrawLineV((Vector2){MARGIN, offset}, (Vector2){SCREEN_WIDTH + MARGIN, offset}, GRID_COLOR);
     }
 }
@@ -116,4 +118,9 @@ void CGame::congratulate() {
         DrawText(message.c_str(), SCREEN_WIDTH / 2 - MeasureText(message.c_str(), 20) / 2, SCREEN_HEIGHT / 2 + 20, 20, GRAY);
         EndDrawing();
     }
+}
+
+void CGame::writeScore() {
+    std::string score = "SCORE: " + std::to_string(snake.getSize());
+    DrawText(score.c_str(), MARGIN, SCREEN_HEIGHT + MARGIN * 1.5, SCORE_FONT_SIZE, SCORE_FONT_COLOR);
 }

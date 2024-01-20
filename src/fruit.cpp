@@ -15,6 +15,7 @@ void CFruit::draw() {
 }
 
 void CFruit::generateNewPos(const std::deque<CPos> forbiddenPos) {
+
     std::random_device rd;
     std::mt19937 gen(rd());
 

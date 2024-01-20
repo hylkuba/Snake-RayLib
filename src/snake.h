@@ -79,6 +79,13 @@ public:
      */
     bool win();
 
+    /**
+     * @brief Returns the size of body
+     * 
+     * @return size_t
+     */
+    unsigned int getSize();
+
 private:
     Color m_head_color;
 

@@ -10,7 +10,10 @@
 CApplication::CApplication() 
     : gameOver(false), lastUpdateTime(0.0),
         refreshInterval(INIT_INTERVAL) {
-    InitWindow(SCREEN_WIDTH + MARGIN * 2, SCREEN_HEIGHT + MARGIN * 2, "Snake Game");
+
+    // Set width to grid size + margin on both sides
+    // Set hight to grid size + margin on both sides + font size for score text
+    InitWindow(SCREEN_WIDTH + MARGIN * 2, SCREEN_HEIGHT + MARGIN * 2 + SCORE_FONT_SIZE, "Snake Game");
 
     SetTargetFPS(TARGET_FPS);
 }
